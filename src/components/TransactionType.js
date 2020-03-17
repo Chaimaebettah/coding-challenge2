@@ -11,12 +11,12 @@ const TransactionType = ({ className, filters, onChange }) => {
       <h3>Transaction Type</h3>
       {filters.map(filter =>
         <Checkbox
-          key={filter.value}
+          key={filter.name}
           checked={filter.active}
-          onChange={(e) => onChange({ ...filter, active: !filter.active })}
+          onChange={(e) => onChange(filter.name)}
           className="capitalize"
         >
-          {filter.value}
+          {filter.name}
         </Checkbox>
       )}
     </div>

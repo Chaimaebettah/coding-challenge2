@@ -13,7 +13,8 @@ import { useActions } from '../hooks';
 const TransactionsContainer = ({ className }) => {
   const { state } = useContext(Context)
   const { getTransations, toggleFilter, sortAndPaginate } = useActions(actions)
-  const { list, loading, filters, sortOrder, sortBy, skip, limit, total } = state
+  const { list, loading, filters, sortOrder, sortBy, skip, limit, total } = state;
+
   useEffect(() => {
     const params = {
       filters: filters.filter(filter => filter.active),
@@ -25,14 +26,15 @@ const TransactionsContainer = ({ className }) => {
     getTransations(params);
   }, [filters, sortOrder, sortBy, skip, limit])
 
-  const accountNameFilters = filters.filter(filter => filter.name === 'accountName');
-  const transactionTypeFilters = filters.filter(filter => filter.name === 'transactionType');
+  const accountNameFilters = filters.filter(filter => filter.category === 'accountName');
+  const transactionTypeFilters = filters.filter(filter => filter.category === 'transactionType');
+
   return (
     <div className={className}>
       <div className="checkbox-container">
         <h2>Filters</h2>
-        <AccountName filters={accountNameFilters} onChange={(filter) => toggleFilter(filter)} />
-        <TransactionType filters={transactionTypeFilters} onChange={(filter) => toggleFilter(filter)} />
+        <AccountName filters={accountNameFilters} onChange={toggleFilter} />
+        <TransactionType filters={transactionTypeFilters} onChange={toggleFilter} />
       </div>
       <div className="transactions-table-container">
         <AllTransactions
@@ -41,6 +43,9 @@ const TransactionsContainer = ({ className }) => {
           pageSize={limit}
           total={total}
           onChange={(pagination, filters, sorter) => {
+            console.log(sorter, 'sorter')
+            console.log(pagination, 'pagination')
+
             const mappedOrder = {
               'ascend': 'asc',
               'descend': 'desc'

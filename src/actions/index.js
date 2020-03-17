@@ -16,6 +16,7 @@ export const transactionFailure = (payload) => ({
 
 export const getTransations = (params) => async (dispatch) => {
   const { filters, sortOrder, sortBy, skip, limit } = params;
+  console.log('filters', filters)
   let url = 'http://localhost:3000/api/transactions?';
   url += `filters=${encodeURI(JSON.stringify(filters))}&`;
   url += `sortOrder=${sortOrder}&`;

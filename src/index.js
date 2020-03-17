@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import TransactionsContainer from './containers/TransactionsContainer';
 import TransactionDetails from './components/TransactionDetails'
 import { Provider as AppContextProvider } from './context/AppContext'

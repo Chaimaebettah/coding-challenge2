@@ -10,11 +10,11 @@ const AccountName = ({ className, filters, onChange }) => {
       {filters.map(filter => {
         return (
           <Checkbox
-            key={filter.value}
+            key={filter.name}
             checked={filter.active}
-            onChange={(e) => onChange({ ...filter, active: !filter.active })}
+            onChange={(e) => onChange(filter.name)}
           >
-            {filter.value}
+            {filter.name}
           </Checkbox>
         )
       })}

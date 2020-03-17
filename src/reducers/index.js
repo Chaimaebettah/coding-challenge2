@@ -43,8 +43,8 @@ export const transactionsReducer = (state = initialState, action) => {
       }
     case types.TOGGLE_FILTER:
       const nextFilters = state.filters.map(filter => {
-        if (action.payload.value === filter.value) {
-          filter.active = action.payload.active;
+        if (action.payload === filter.name) {
+          filter.active = !filter.active;
         }
 
         return filter;

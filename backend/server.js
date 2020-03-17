@@ -22,29 +22,18 @@ const sortRecords = (records, sortOrder, sortBy) => records.sort((a, b) => {
 const filterRecords = (records, filters) => {
   if (!filters.length) return records;
   const nextRecords = [];
-
-  const accountNameFilters = filters.filter(filter => filter.name === 'accountName');
-  const transactionTypeFilters = filters.filter(filter => filter.name === 'transactionType');
-  const hasMultipleActiveCategoryFilters = accountNameFilters.length && transactionTypeFilters.length;
+  const filterCategories = new Set(filters.map(f => f.category));
 
   records.forEach(record => {
-    let matchesAccountNameFilter = false;
-    let matchesTransactionTypeFilter = false;
-    accountNameFilters.forEach(filter => {
-      if (record[filter.name] === filter.value) {
-        matchesAccountNameFilter = true;
+    const matchedCategories = [];
+    //
+    filters.forEach(filter => {
+      if (record[filter.category] === filter.name) {
+        matchedCategories.push(filter.category);
       }
-    })
+    });
 
-    transactionTypeFilters.forEach(filter => {
-      if (record[filter.name] === filter.value) {
-        matchesTransactionTypeFilter = true;
-      }
-    })
-
-    if ((hasMultipleActiveCategoryFilters && matchesAccountNameFilter && matchesTransactionTypeFilter) ||
-      (!hasMultipleActiveCategoryFilters && (matchesAccountNameFilter || matchesTransactionTypeFilter))
-    ) {
+    if (filterCategories.size === matchedCategories.length) {
       nextRecords.push(record);
     }
   })
